@@ -1,2 +1,2 @@
-require 'core-data/version'
-require 'core-data/data_model'
+require 'core_data/version'
+require 'core_data/data_model'

@@ -32,6 +32,6 @@ module CoreData
   end
 end
 
-require 'core-data/data_model/entity'
-require 'core-data/data_model/attribute'
-require 'core-data/data_model/relationship'
+require 'core_data/data_model/entity'
+require 'core_data/data_model/attribute'
+require 'core_data/data_model/relationship'

@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "core-data/version"
+require "core_data/version"
 
 Gem::Specification.new do |s|
-  s.name        = "core-data"
+  s.name        = "core_data"
   s.authors     = ["Mattt Thompson"]
   s.email       = "m@mattt.me"
   s.homepage    = "http://mattt.me"
