@@ -17,6 +17,7 @@ module CoreData
         @to_many = relationship['toMany'] == "YES"
         @optional = relationship['optional'] == "YES"
         @syncable = relationship['syncable'] == "YES"
+        @ordered = relationship['ordered'] == "YES"
       end
 
       def to_s
@@ -29,6 +30,10 @@ module CoreData
 
       def to_one?
         !to_many?
+      end
+
+      def ordered?
+        @ordered
       end
 
       [:optional, :syncable].each do |symbol|
