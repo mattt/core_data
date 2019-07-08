@@ -2,6 +2,8 @@
 
 **Parse Core Data Model (.xcdatamodel) Files**
 
+> This project is no longer maintained.
+
 ## Contact
 
 [Mattt](https://twitter.com/mattt)
