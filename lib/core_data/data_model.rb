@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 
 module CoreData
@@ -8,13 +10,13 @@ module CoreData
       loop do
         case data_model
         when File, /^\<\?xml/
-          data_model = ::Nokogiri::XML(data_model) and redo
+          (data_model = ::Nokogiri::XML(data_model)) && redo
         when String
           case data_model
           when /\.xcdatamodeld?$/
-            data_model = Dir[File.join(data_model, "/**/contents")].first and redo
+            (data_model = Dir[File.join(data_model, '/**/contents')].first) && redo
           else
-            data_model = ::File.read(data_model) and redo
+            (data_model = ::File.read(data_model)) && redo
           end
         when ::Nokogiri::XML::Document
           break
@@ -27,7 +29,7 @@ module CoreData
 
       @name = model['name']
       @version = model['systemVersion']
-      @entities = model.xpath('entity').collect{|element| Entity.new(element)}
+      @entities = model.xpath('entity').collect { |element| Entity.new(element) }
     end
   end
 end

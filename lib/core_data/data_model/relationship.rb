@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CoreData
   class DataModel
     class Relationship
@@ -14,10 +16,10 @@ module CoreData
         @min_count = relationship['minCount'].to_i
         @max_count = relationship['maxCount'].to_i
 
-        @to_many = relationship['toMany'] == "YES"
-        @optional = relationship['optional'] == "YES"
-        @syncable = relationship['syncable'] == "YES"
-        @ordered = relationship['ordered'] == "YES"
+        @to_many = relationship['toMany'] == 'YES'
+        @optional = relationship['optional'] == 'YES'
+        @syncable = relationship['syncable'] == 'YES'
+        @ordered = relationship['ordered'] == 'YES'
       end
 
       def to_s
@@ -36,8 +38,8 @@ module CoreData
         @ordered
       end
 
-      [:optional, :syncable].each do |symbol|
-        define_method("#{symbol}?") {!!instance_variable_get(("@#{symbol}").intern)}
+      %i[optional syncable].each do |symbol|
+        define_method("#{symbol}?") { !!instance_variable_get("@#{symbol}".intern) }
       end
     end
   end

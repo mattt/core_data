@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CoreData
   class DataModel
     class Attribute
@@ -15,20 +17,24 @@ module CoreData
         @minimum_value = range_value_from_string(attribute['minValueString'])
         @maximum_value = range_value_from_string(attribute['maxValueString'])
 
-        @regular_expression = Regexp.new(attributes['regularExpressionString']) rescue nil
+        @regular_expression = begin
+                                Regexp.new(attributes['regularExpressionString'])
+                              rescue StandardError
+                                nil
+                              end
 
-        @optional = attribute['optional'] == "YES"
-        @transient = attribute['transient'] == "YES"
-        @indexed = attribute['indexed'] == "YES"
-        @syncable = attribute['syncable'] == "YES"
+        @optional = attribute['optional'] == 'YES'
+        @transient = attribute['transient'] == 'YES'
+        @indexed = attribute['indexed'] == 'YES'
+        @syncable = attribute['syncable'] == 'YES'
       end
 
       def to_s
         [@name, @type].to_s
       end
 
-      [:optional, :transient, :indexed, :syncable].each do |symbol|
-        define_method("#{symbol}?") {!!instance_variable_get(("@#{symbol}").intern)}
+      %i[optional transient indexed syncable].each do |symbol|
+        define_method("#{symbol}?") { !!instance_variable_get("@#{symbol}".intern) }
       end
 
       private
@@ -36,28 +42,28 @@ module CoreData
       def default_value_from_string(string)
         return nil unless string
 
-        return case @type
-               when "Integer 16", "Integer 32", "Integer 64"
-                 string.to_i
-               when "Float", "Decimal"
-                 string.to_f
-               when "Boolean"
-                 string == "YES"
-               else
-                 string
+        case @type
+        when 'Integer 16', 'Integer 32', 'Integer 64'
+          string.to_i
+        when 'Float', 'Decimal'
+          string.to_f
+        when 'Boolean'
+          string == 'YES'
+        else
+          string
                end
       end
 
       def range_value_from_string(string)
         return nil unless string
 
-        return case @type
-               when "Float", "Decimal"
-                 string.to_f
-               when "Date"
-                 string
-               else
-                 string.to_i
+        case @type
+        when 'Float', 'Decimal'
+          string.to_f
+        when 'Date'
+          string
+        else
+          string.to_i
                end
       end
     end
